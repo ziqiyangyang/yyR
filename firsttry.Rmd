@@ -1,0 +1,7 @@
+---
+title: "Give a Try"
+author: "Ziqi Yang"
+date: "Saturday, September 12, 2015"
+output: html_document
+---
+**Give a Try**
