@@ -1,0 +1,34 @@
+---
+title: "Homework 1: Gapminder"
+author: "Ziqi Yang"
+date: "Monday, September 14, 2015"
+output: html_document
+---
+
+#1. Gapminder excerpt  
+##Bring rectangular data in:  
+```{r}
+#datat1<-read.table(file="gapminderDataFiveYear.txt")
+data2<-read.delim(file="gapminderDataFiveYear.txt")
+```
+
+If we use the functions without specifying arguments other than *file*, we can't the same result. For *read.table()*, there are errors. Because when we look into the documents for *read.table()* and *read.delim()*, their arguments are different. The default argument *sep* for *read.table()* is white space, but default argument *sep* for read.delim() is "\\t", which means tab. Because for observation 145, the country's name has space in it, so if we set *sep* argument to white space, R will separate the country and that lead to the error. The second error is for argument *header*, we should set "header=T" in order to exclude the header of the data  out of the observation.  
+  
+    
+This time we can set the argument of *read.table()*, so that it is  equivalent to *read.delim()*:  
+
+```{r}
+data1<-read.table(file="gapminderDataFiveYear.txt",sep="\t",header=T)
+```
+
+##Small test the data:  
+* It is a data.frame. We can see this by "class(data1)"
+* Its class is data.frame.
+* There are six variables, which are country, year, pop, continent, lifeExp, gdpPercap.
+* There are 1698 observations.
+* 
+  
+  
+##Explore individual variables:  
+
+
