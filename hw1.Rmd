@@ -1,0 +1,54 @@
+---
+title: 'Homework 1: Gapminder'
+author: "Ziqi Yang"
+date: "Monday, September 14, 2015"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+    theme: readable
+    highlight: zenburn
+    
+---
+
+#Gapminder  
+
+##Bring rectangular data in:  
+```{r}
+#datat1 <- read.table(file = "gapminderDataFiveYear.txt")
+data2 <- read.delim(file = "gapminderDataFiveYear.txt")
+```
+
+If we use the functions without specifying arguments other than *file*, we can't the same result. For *read.table()*, there are errors. Because when we look into the documents for *read.table()* and *read.delim()*, their arguments are different. The default argument *sep* for *read.table()* is white space, but default argument *sep* for read.delim() is "\\t", which means tab. Because for observation 145, the country's name has space in it, so if we set *sep* argument to white space, R will separate the country and that lead to the error. The second error is for argument *header*, we should set "header=T" in order to exclude the header of the data  out of the observation. The last error is argument *quote*, we should let quote be \", but not \', because some countries' name have quote \' in it. 
+  
+    
+This time we can set the argument of *read.table()*, so that it is  equivalent to *read.delim()*:  
+
+```{r}
+data1 <- read.table(file = "gapminderDataFiveYear.txt", sep = "\t", header = T, quote = "\"")
+```
+  
+  
+  
+##Smell test the data:  
+* It is a data.frame. We can see this by "class(data1)"
+* Its class is data.frame.
+* There are six variables, which are country, year, pop, continent, lifeExp, gdpPercap.
+* There are 1704 observations.
+* Of course there are more than one way to get these facts. By the command "length(data1$country)" or by "summary(data1)" or simply by print the whole data frame.   
+* The variable country is categorical, the variable year is integer, the variable pop is numeric, the variable continent is categorical, the variable lifeExp is numeric, the variable gdpPercap is numeric. 
+  
+  
+  
+##Explore individual variables:  
+* I choose the categorical variable country. It has 142 levels, that means there are 142 countries in this dataset. Each country have 12 years different kinds of data. So add up together 142 * 12 = 1704. I choose the quatitative variable as pop, which is population. By command "max(data1\$pop)" and "min(data1\$pop)", we can get the largest population and smallest population in 12 these years. They are 1,318,683,096 and 60,011. By using "data1[which(data1$pop==1318683096),]" and "data1[which(data1$pop==60011),]", we can get China in 2007 has the largest the population, Sao Tome and Principle has the smallest population. 
+  
+* In order to answer the characteristics of the data, we need to do something more, such as graphics and some simple data summaries:  
+
+```{r}
+library(lattice)
+xyplot(pop~year|country,data=data1[1:60])
+```
+
+
+
